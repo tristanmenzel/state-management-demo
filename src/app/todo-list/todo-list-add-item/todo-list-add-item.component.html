@@ -1,0 +1,12 @@
+<fieldset>
+  <legend>Add todo</legend>
+  <loading-pane [tracker]="tracker">
+    <form (submit)="addTodoItem()">
+      <label>Title: <input type="text"
+                           [value]="item.text"
+                           required
+                           (change)="setText($event.target.value)"> </label>
+      <button>Add</button>
+    </form>
+  </loading-pane>
+</fieldset>

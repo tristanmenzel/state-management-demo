@@ -1,0 +1,7 @@
+<span>
+  {{ item.text }}
+</span>
+<label>
+  done
+  <input type="checkbox" [checked]="item.done" (change)="setDone($event.target.checked)">
+</label>
