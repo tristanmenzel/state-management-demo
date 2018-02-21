@@ -3,6 +3,7 @@ import {TodoState} from './state/todo-state';
 import {Action, Dispatcher, InitState} from './actions';
 import {TodoService} from './services/todo.service';
 import {WorkTracker} from 'ng2-loading-pane';
+import {CreateStore, Store} from '../util/store';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,22 +12,22 @@ import {WorkTracker} from 'ng2-loading-pane';
 })
 export class TodoListComponent implements OnInit {
 
-  state: TodoState;
+  store: Store<TodoState>;
+
   tracker: WorkTracker = new WorkTracker(false);
 
+
   constructor(private todoService: TodoService) {
+    this.store = CreateStore<TodoState>(null as any, console.error, this.tracker);
   }
 
   ngOnInit() {
-    this.dispatchAction(InitState(this.todoService));
+    this.store.dispatch(InitState(this.todoService));
   }
 
-  dispatchAction: Dispatcher = async (action: Action, tracker: WorkTracker = this.tracker) => {
-    try {
-      this.state = await tracker.track(action(this.state));
-    } catch (error) {
-      // Log it... redirect to error page... show error alert...
-    }
-  };
+  get state() {
+    return this.store.state;
+  }
+
 }
 

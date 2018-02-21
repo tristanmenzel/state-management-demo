@@ -2,13 +2,13 @@
   <div *ngIf="state">
     <ul>
       <li *ngFor="let item of state.items">
-        <app-todo-list-item [item]="item" [dispatcher]="dispatchAction"></app-todo-list-item>
+        <app-todo-list-item [item]="item" [dispatcher]="store.dispatch"></app-todo-list-item>
       </li>
       <li *ngIf="state.items.length === 0">
         No items to display
       </li>
     </ul>
-    <app-todo-list-add-item [item]="state.newItem" [dispatcher]="dispatchAction"></app-todo-list-add-item>
+    <app-todo-list-add-item [item]="state.newItem" [dispatcher]="store.dispatch"></app-todo-list-add-item>
     <app-toasterfy [toast]="state.toastAlert"></app-toasterfy>
   </div>
 </loading-pane>
